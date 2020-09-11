@@ -8,8 +8,8 @@ A simple task CLI written in GO.
 ## Install
 
 ```
-go get github.com/benjlevesque/task 
-task
+curl -sfL https://raw.githubusercontent.com/benjlevesque/task/master/install.sh | sh
+./bin/task
 ```
 
 
