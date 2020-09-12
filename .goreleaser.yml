@@ -20,8 +20,12 @@ checksum:
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
-  sort: asc
+  sort: desc
   filters:
     exclude:
       - '^docs:'
       - '^test:'
+dockers:
+  - image_templates:
+      - "docker.pkg.github.com/benjlevesque/task:latest"
+      - "docker.pkg.github.com/benjlevesque/task:{{ .Tag }}"
