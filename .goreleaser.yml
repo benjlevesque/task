@@ -27,5 +27,5 @@ changelog:
       - '^test:'
 dockers:
   - image_templates:
-      - "docker.pkg.github.com/benjlevesque/task:latest"
-      - "docker.pkg.github.com/benjlevesque/task:{{ .Tag }}"
+      - "docker.pkg.github.com/benjlevesque/task/task:latest"
+      - "docker.pkg.github.com/benjlevesque/task/task:{{ .Tag }}"
