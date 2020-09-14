@@ -13,8 +13,8 @@ type Store struct {
 }
 
 // GetStore gets a store
-func GetStore() Store {
-	return Store{
+func GetStore() *Store {
+	return &Store{
 		Path: viper.GetString("db"),
 	}
 }

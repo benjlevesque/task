@@ -48,7 +48,7 @@ func GetTaskListValidArgs(completionType db.ListType, array bool) func(cmd *cobr
 			return nil, cobra.ShellCompDirectiveNoFileComp
 		}
 		var ids []string
-		if array {
+		if array || len(args) == 0 {
 			ids = toCompletionArray(list, args)
 		} else if len(list) > 0 && len(args) == 0 {
 			ids = make([]string, 1)

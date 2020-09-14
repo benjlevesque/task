@@ -16,9 +16,9 @@ const DefaultEditor = "vim"
 // prefers to use, such as the configured `$EDITOR` environment variable.
 type PreferredEditorResolver func() string
 
-// GetPreferredEditorFromEnvironment returns the user's editor as defined by the
+// GetPreferredEditor returns the user's editor as defined by the
 // `$EDITOR` environment variable, or the `DefaultEditor` if it is not set.
-func GetPreferredEditorFromEnvironment() string {
+func GetPreferredEditor() string {
 	editor := os.Getenv("EDITOR")
 
 	if editor == "" {
@@ -40,10 +40,22 @@ func resolveEditorArguments(executable string, filename string) []string {
 	return args
 }
 
-// OpenFileInEditor opens filename in a text editor.
-func OpenFileInEditor(filename string, resolveEditor PreferredEditorResolver) error {
+// TextEditor can open and modify files using an editor
+type TextEditor struct {
+	ResolveEditor PreferredEditorResolver
+}
+
+// NewTextEditor creates a TextEditor
+func NewTextEditor() *TextEditor {
+	return &TextEditor{
+		ResolveEditor: GetPreferredEditor,
+	}
+}
+
+// OpenFile opens filename in a text editor.
+func (t *TextEditor) OpenFile(filename string) error {
 	// Get the full executable path for the editor.
-	executable, err := exec.LookPath(resolveEditor())
+	executable, err := exec.LookPath(t.ResolveEditor())
 	if err != nil {
 		return err
 	}
@@ -56,15 +68,15 @@ func OpenFileInEditor(filename string, resolveEditor PreferredEditorResolver) er
 	return cmd.Run()
 }
 
-// CaptureInputFromEditor opens a temporary file in a text editor and returns
+// CaptureInput opens a temporary file in a text editor and returns
 // the written bytes on success or an error on failure. It handles deletion
 // of the temporary file behind the scenes.
-func CaptureInputFromEditor() (string, error) {
-	return EditTextWithEditor("")
+func (t *TextEditor) CaptureInput() (string, error) {
+	return t.EditText("")
 }
 
-// EditTextWithEditor edits the given text using the editor returned by resolveEditor
-func EditTextWithEditor(txt string) (string, error) {
+// EditText edits the given text using the editor returned by resolveEditor
+func (t *TextEditor) EditText(txt string) (string, error) {
 	file, err := ioutil.TempFile(os.TempDir(), "*")
 	if err != nil {
 		return "", err
@@ -86,7 +98,7 @@ func EditTextWithEditor(txt string) (string, error) {
 		return "", err
 	}
 
-	if err = OpenFileInEditor(filename, GetPreferredEditorFromEnvironment); err != nil {
+	if err = t.OpenFile(filename); err != nil {
 		return "", err
 	}
 

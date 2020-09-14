@@ -1,15 +1,16 @@
-package cmd
+package pkg
 
 import (
 	"fmt"
-	"os"
 	"strconv"
-
-	"github.com/benjlevesque/task/db"
 )
 
-func toggleTasks(args []string, done bool) {
-	store := db.GetStore()
+type taskToggler interface {
+	ToggleTask(int, bool) error
+}
+
+// ToggleTasks sets one or several task to the value passed as done
+func ToggleTasks(store taskToggler, args []string, done bool) {
 	for _, arg := range args {
 		id, err := strconv.Atoi(arg)
 		if err != nil {
@@ -19,12 +20,5 @@ func toggleTasks(args []string, done bool) {
 		if err != nil {
 			fmt.Println(err)
 		}
-	}
-}
-
-func exitIfError(err error) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
 	}
 }
