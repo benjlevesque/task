@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/benjlevesque/task/db"
-	"github.com/benjlevesque/task/pkg"
-	"github.com/benjlevesque/task/util"
+	"github.com/benjlevesque/task/pkg/db"
+	"github.com/benjlevesque/task/pkg/tasks"
+	"github.com/benjlevesque/task/pkg/util"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +12,7 @@ var doCmd = &cobra.Command{
 	Short:             "Marks a task as done",
 	ValidArgsFunction: util.GetTaskListValidArgs(db.Undone, true),
 	Run: func(cmd *cobra.Command, args []string) {
-		pkg.ToggleTasks(db.GetStore(), args, true)
+		tasks.ToggleTasks(db.GetStore(), args, true)
 	},
 }
 

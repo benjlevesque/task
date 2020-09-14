@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/benjlevesque/task/db"
-	"github.com/benjlevesque/task/pkg"
-	"github.com/benjlevesque/task/util"
+	"github.com/benjlevesque/task/pkg/db"
+	"github.com/benjlevesque/task/pkg/tasks"
+	"github.com/benjlevesque/task/pkg/util"
 	"github.com/spf13/cobra"
 )
 
@@ -18,7 +18,7 @@ var listCmd = &cobra.Command{
 	Short:             "Lists all tasks",
 	ValidArgsFunction: util.NoFileCompletion,
 	Run: func(cmd *cobra.Command, args []string) {
-		pkg.ListTasks(db.GetStore(), all, args)
+		tasks.ListTasks(db.GetStore(), all, args)
 	},
 }
 

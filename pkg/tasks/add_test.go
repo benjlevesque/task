@@ -1,4 +1,4 @@
-package pkg_test
+package tasks_test
 
 import (
 	"testing"

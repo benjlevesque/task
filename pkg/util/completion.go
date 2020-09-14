@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/benjlevesque/task/db"
+	"github.com/benjlevesque/task/pkg/db"
 	"github.com/benjlevesque/task/types"
 	"github.com/spf13/cobra"
 )

@@ -6,9 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/benjlevesque/task/db"
-	"github.com/benjlevesque/task/pkg"
-	"github.com/benjlevesque/task/util"
+	"github.com/benjlevesque/task/pkg/db"
+	"github.com/benjlevesque/task/pkg/util"
 	"github.com/spf13/cobra"
 )
 
@@ -53,7 +52,7 @@ func addReminder(cmd *cobra.Command, args []string) {
 	id := getReminderID(cmd, args)
 	store := db.GetStore()
 	err := store.SetReminder(id, time.Now())
-	pkg.ExitIfError(err)
+	exitIfError(err)
 	fmt.Printf("Reminder added for task %d\n", id)
 }
 
@@ -62,14 +61,14 @@ func getReminder(cmd *cobra.Command, args []string) {
 	store := db.GetStore()
 
 	t, err := store.GetReminder(id)
-	pkg.ExitIfError(err)
+	exitIfError(err)
 	fmt.Println(t)
 }
 
 func dumpReminders(cmd *cobra.Command, args []string) {
 	store := db.GetStore()
 	reminders, err := store.ListReminders()
-	pkg.ExitIfError(err)
+	exitIfError(err)
 	for _, reminder := range reminders {
 		fmt.Printf("%d. %s (%s)\n", reminder.Task.ID, reminder.Task.Title, reminder.Time)
 	}
@@ -79,7 +78,7 @@ func deleteReminder(cmd *cobra.Command, args []string) {
 	id := getReminderID(cmd, args)
 	store := db.GetStore()
 	err := store.DeleteReminder(id)
-	pkg.ExitIfError(err)
+	exitIfError(err)
 }
 
 func getReminderID(cmd *cobra.Command, args []string) int {

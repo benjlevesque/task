@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/benjlevesque/task/db"
-	"github.com/benjlevesque/task/pkg"
-	"github.com/benjlevesque/task/util"
+	"github.com/benjlevesque/task/pkg/db"
+	"github.com/benjlevesque/task/pkg/tasks"
+	"github.com/benjlevesque/task/pkg/util"
 
 	"github.com/spf13/cobra"
 )
@@ -14,7 +14,7 @@ var removeCmd = &cobra.Command{
 	Aliases:           []string{"rm"},
 	ValidArgsFunction: util.GetTaskListValidArgs(db.All, true),
 	Run: func(cmd *cobra.Command, args []string) {
-		pkg.RemoveTask(db.GetStore(), args)
+		tasks.RemoveTask(db.GetStore(), args)
 	},
 }
 

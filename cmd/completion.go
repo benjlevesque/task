@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/benjlevesque/task/util"
+	"github.com/benjlevesque/task/pkg/util"
 	"github.com/spf13/cobra"
 )
 
