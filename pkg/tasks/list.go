@@ -7,12 +7,12 @@ import (
 	"github.com/benjlevesque/task/types"
 )
 
-type taskLister interface {
+type TaskLister interface {
 	List(t db.ListType) ([]types.Task, error)
 }
 
 // ListTasks list all tasks
-func ListTasks(store taskLister, all bool, args []string) {
+func ListTasks(store TaskLister, all bool, args []string) {
 	listType := db.Undone
 	if all {
 		listType = db.All

@@ -5,12 +5,12 @@ import (
 	"strconv"
 )
 
-type taskToggler interface {
+type TaskToggler interface {
 	ToggleTask(int, bool) error
 }
 
 // ToggleTasks sets one or several task to the value passed as done
-func ToggleTasks(store taskToggler, args []string, done bool) {
+func ToggleTasks(store TaskToggler, args []string, done bool) {
 	for _, arg := range args {
 		id, err := strconv.Atoi(arg)
 		if err != nil {

@@ -9,17 +9,19 @@ import (
 	"github.com/benjlevesque/task/types"
 )
 
-type taskEditer interface {
+// TaskEditer allows to modify an existing task
+type TaskEditer interface {
 	EditTask(int, string) error
 	GetTask(int) (types.Task, error)
 }
 
-type textEditer interface {
+// TextEditer allows to modify a string
+type TextEditer interface {
 	EditText(string) (string, error)
 }
 
-// EditTask edits  a task using a textEditer
-func EditTask(store taskEditer, editer textEditer, args []string) {
+// EditTask edits  a task using a TextEditer
+func EditTask(store TaskEditer, editer TextEditer, args []string) {
 
 	id, err := strconv.Atoi(args[0])
 	if err != nil {

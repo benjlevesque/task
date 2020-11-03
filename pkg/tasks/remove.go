@@ -5,12 +5,12 @@ import (
 	"strconv"
 )
 
-type taskDeleter interface {
+type TaskDeleter interface {
 	DeleteTask(int) error
 }
 
 // RemoveTask removes a task
-func RemoveTask(store taskDeleter, args []string) {
+func RemoveTask(store TaskDeleter, args []string) {
 	for _, arg := range args {
 		id, err := strconv.Atoi(arg)
 		if err != nil {

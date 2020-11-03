@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-type taskCreater interface {
+type TaskCreater interface {
 	CreateTask(title string) (int, error)
 }
 
 // AddTask adds a task
-func AddTask(store taskCreater, args []string) {
+func AddTask(store TaskCreater, args []string) {
 	title := strings.Join(args, " ")
 	id, err := store.CreateTask(title)
 	if err != nil {
