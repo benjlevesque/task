@@ -2,7 +2,6 @@ package tasks
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -30,17 +29,17 @@ func EditTask(store TaskEditer, editer TextEditer, args []string) {
 	}
 	task, err := store.GetTask(id)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 	newText, err := editer.EditText(task.Title)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 	err = store.EditTask(id, newText)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 	fmt.Printf("Task edited: %d. %s\n", id, newText)
