@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
@@ -19,6 +20,15 @@ var verbose bool
 var rootCmd = &cobra.Command{
 	Use:   "task",
 	Short: "A brief description of your application",
+}
+
+// SetVersion changes the version of the based command.
+func SetVersion(version, commit, date string) {
+	t, err := time.Parse(time.RFC3339, date)
+	if err == nil {
+		date = t.Format("2006-01-02")
+	}
+	rootCmd.Version = fmt.Sprintf("%s (%s)", version, date)
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

@@ -1,21 +1,17 @@
 package main
 
 import (
-	"flag"
-
 	"github.com/benjlevesque/task/cmd"
 )
 
-func main() {
-	var docs bool
-	var docPath string
-	flag.BoolVar(&docs, "docs", false, "Generates doc")
-	flag.StringVar(&docPath, "docs-path", "./docs", "Docs path")
-	flag.Parse()
+// set by ldflags at build
+var (
+	version = "<not set>"
+	commit  = "<not set>"
+	date    = "<not set>"
+)
 
-	if docs {
-		cmd.Docs(docPath)
-	} else {
-		cmd.Execute()
-	}
+func main() {
+	cmd.SetVersion(version, commit, date)
+	cmd.Execute()
 }
