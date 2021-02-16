@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/benjlevesque/task/types"
 )
@@ -37,6 +38,9 @@ func EditTask(store TaskEditer, editer TextEditer, args []string) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	newText = strings.TrimSpace(newText)
+
 	err = store.EditTask(id, newText)
 	if err != nil {
 		fmt.Println(err)
